@@ -1,0 +1,23 @@
+{
+  "name": "replorer",
+  "version": "1.0.0",
+  "description": "Search repos.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arpadvas/replorer.git"
+  },
+  "author": "Arpad Vas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arpadvas/replorer/issues"
+  },
+  "homepage": "https://github.com/arpadvas/replorer#readme",
+  "dependencies": {
+    "express": "^4.15.0",
+    "morgan": "^1.8.1"
+  }
+}

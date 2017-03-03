@@ -1,0 +1,1 @@
+angular.module('replorerApp', ['mainController', 'dataService', 'ngAnimate']);
