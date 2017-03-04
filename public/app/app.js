@@ -1,1 +1,1 @@
-angular.module('replorerApp', ['mainController', 'dataService', 'ngAnimate']);
+angular.module('replorerApp', ['appRoutes', 'mainController', 'dataService', 'ngAnimate', 'angularUtils.directives.dirPagination', 'resultController']);

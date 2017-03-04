@@ -4,7 +4,15 @@ angular.module('dataService', [])
 	dataFactory = {};
 
 	dataFactory.getData = function(searchKeyword) {
-		return $http.get('https://api.github.com/search/repositories?q=' + searchKeyword);
+		return $http({ 
+			url: 'https://api.github.com/search/repositories',
+			method: 'GET',
+			params: {q: searchKeyword}
+		});
+	};
+
+	dataFactory.getDataByID = function(id) {
+		return $http.get('https://api.github.com/repositories/'+ id);
 	};
 
 

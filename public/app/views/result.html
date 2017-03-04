@@ -1,0 +1,52 @@
+
+
+<div class="container tm100">
+
+	<div class="sk-fading-circle" ng-show="result.loading">
+		<div class="sk-circle1 sk-circle"></div>
+		<div class="sk-circle2 sk-circle"></div>
+		<div class="sk-circle3 sk-circle"></div>
+		<div class="sk-circle4 sk-circle"></div>
+		<div class="sk-circle5 sk-circle"></div>
+		<div class="sk-circle6 sk-circle"></div>
+		<div class="sk-circle7 sk-circle"></div>
+		<div class="sk-circle8 sk-circle"></div>
+		<div class="sk-circle9 sk-circle"></div>
+		<div class="sk-circle10 sk-circle"></div>
+		<div class="sk-circle11 sk-circle"></div>
+		<div class="sk-circle12 sk-circle"></div>
+	</div>
+
+	<div class="alert alert-danger show-hide-message" role="alert" ng-show='result.errorMsg'><p>{{result.errorMsg}}</p></div>	
+	<ul class="nav nav-tabs">
+		<li role="presentation" ng-click="result.showDetails();" ng-class="detailsTab"><a href="#">Details</a></li>
+		<li role="presentation" ng-click="result.showIssues();" ng-class="issuesTab"><a href="#">Issues</a></li>
+	</ul>
+	<div class="panel panel-default" ng-show="result.detailsPhase">
+		<div class="panel-body">
+			<p>Name: {{result.name}}</p>
+			<p>URL: <a ng-href="{{result.url}}">{{result.url}}</a></p>
+			<p>Description: {{result.description}}</p>
+			<p>Created by: {{result.owner}}</p>
+		</div>
+		<ul class="list-group">
+			<li class="list-group-item">
+				<span class="badge">{{result.forks}}</span>
+				Forks
+			</li>
+			<li class="list-group-item">
+				<span class="badge">{{result.open_issues}}</span>
+				Open issues
+			</li>
+			<li class="list-group-item">
+				<span class="badge">{{result.stargazers}}</span>
+				Stargazers
+			</li>
+			<li class="list-group-item">
+				<span class="badge">{{result.watchers}}</span>
+				Watchers
+			</li>
+		</ul>
+	</div>
+</div>
+

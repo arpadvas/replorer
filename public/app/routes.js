@@ -10,8 +10,8 @@ var app = angular.module('appRoutes', ['ngRoute'])
 		controllerAs: 'main'
 	})
 
-	.when('/result', {
-		templateUrl: 'app/views/pages/result.html',
+	.when('/result/:id', {
+		templateUrl: 'app/views/result.html',
 		controller: 'resultCtrl',
 		controllerAs: 'result'
 	})
