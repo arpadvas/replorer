@@ -41,23 +41,28 @@
           <a class="navbar-brand" href="#">Replorer!</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right" ng-submit="main.search(searchKeyword)">
-            <div class="form-group">
-              <input type="text" name="searchKeyword" placeholder="Search repo..." class="form-control" ng-model="searchKeyword">
-            </div>
-            <button type="submit" class="btn btn-success">Search</button>
-          </form>
+        
         </div>
       </div>
     </nav>
 
-    <div class="jumbotron">
-      <div class="container">
-        <h1>Search results</h1>
-        <div class="alert alert-danger alert-custom show-hide-message" role="alert" ng-show='main.errorMsg'><p>{{main.errorMsg}}</p></div>
-        <p>{{main.name}}</p>
-      </div>
+      <div class="container tm50">
+        <h1>search</h1>
+        <input type="text" class="form-control" name="searchKeyword" placeholder="Search repo..." ng-model="searchKeyword">
+        <button class="btn btn-default" type="button" ng-click="main.search(searchKeyword);">Search</button>
     </div>
+
+    <div class="container">
+        <h1>result</h1>
+        <div class="list-group" ng-repeat="item in main.items">
+          <a href="#" class="list-group-item">
+            <h4 class="list-group-item-heading">{{item.name}}</h4>
+            <p class="list-group-item-text">{{item.clone_url}}</p>
+            <p class="list-group-item-text">by {{item.owner.login}}</p>
+          </a>
+        </div>
+    </div>
+
 
 
 
@@ -66,3 +71,4 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </body>
 </html>
+

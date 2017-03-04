@@ -4,7 +4,6 @@ angular.module('mainController', [])
 	
   const app = this;
 
-
   app.search = function(searchKeyword) {
 
     $scope.searchKeyword = searchKeyword;
@@ -14,7 +13,8 @@ angular.module('mainController', [])
           app.errorMsg = 'No repository was found';
           app.name = undefined;
         } else {
-          app.name = data.data.items[0].name;
+          app.items = data.data.items;
+          console.log(app.items[0].name);
         }
       } else {
         app.errorMsg = 'No repository was found';
