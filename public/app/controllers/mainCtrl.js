@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('mainController', [])
 
 .controller('mainCtrl', function(Data, $scope) {
@@ -13,20 +15,18 @@ angular.module('mainController', [])
     app.items = undefined;
 
     $scope.searchKeyword = searchKeyword;
-    Data.getData($scope.searchKeyword).then(function(data) {
-      if (data.status === 200) {
-        if (data.data.total_count === 0) {
-          app.loading = false;
-          app.errorMsg = 'No repository was found';
-        } else {
-          app.loading = false;
-          app.items = data.data.items;
-        }
-      } else {
-        app.errorMsg = 'No repository was found';
-      }
-      app.loading = false;
 
+    Data.getData($scope.searchKeyword).then(function(data) {
+      if (data.data.total_count === 0) {
+        app.loading = false;
+        app.errorMsg = 'No repository was found';
+      } else {
+        app.loading = false;
+        app.items = data.data.items;
+      }
+    }, function(data) {
+        app.loading = false;
+        app.errorMsg = 'Request failed';
     });
   }
 

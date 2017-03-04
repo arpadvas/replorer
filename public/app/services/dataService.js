@@ -15,6 +15,10 @@ angular.module('dataService', [])
 		return $http.get('https://api.github.com/repositories/'+ id);
 	};
 
+	dataFactory.getIssues = function(name, owner) {
+		return $http.get('https://api.github.com/search/issues?q=repo:' + owner + '/'+ name);
+	};
+
 
 	return dataFactory;
 });
