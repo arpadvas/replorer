@@ -1,9 +1,9 @@
 'use strict';
 
-const express = require('express');
-const morgan = require('morgan');
-const app = express();
-const path = require('path');
+var express = require('express');
+var morgan = require('morgan');
+var app = express();
+var path = require('path');
 
 app.use(morgan('dev'));
 

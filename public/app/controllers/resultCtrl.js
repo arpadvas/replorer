@@ -2,18 +2,24 @@
 
 angular.module('resultController', [])
 
-.controller('resultCtrl', function($scope, $routeParams, Data) {
+.controller('resultCtrl', function($routeParams, Data) {
 	
- const app = this;
+  var app = this;
 
- app.loading = true;
- app.loaded = false;
- app.pageSize = 10;
- app.id = $routeParams.id;
+  app.loading = true;
+  app.loaded = false;
+  app.pageSize = 10;
+  app.id = $routeParams.id;
+  app.issues = [];
+  app.pageCounter = 1;
+  app.detailsTab = 'active';
+  app.issuesTab = 'default';
+  app.detailsPhase = true;
 
- Data.getDataByID(app.id).then(function(data) {
-  if (data.status === 200) {
+
+  function detailSuccesHandler(data) {
     app.name = data.data.name;
+    app.full_name = data.data.full_name;
     app.url = data.data.html_url;
     app.description = data.data.description;
     app.owner = data.data.owner.login;
@@ -24,36 +30,48 @@ angular.module('resultController', [])
     app.watchers = data.data.watchers;
     app.loading = false;
     app.loaded = true;
-  } else {
-    app.errorMsg = 'No repository was found';
+ }
+
+ function detailsErrorHandler(data) {
+    app.errorMsg = 'Request failed';
     app.loading = false;
+ }
+
+  function issuesSuccesHandler(data) {
+    if (data.data.items.length < 100) {
+      for (var i=0; i < data.data.items.length; i++) {
+        app.issues.push(data.data.items[i]);
+      }
+    } else {
+      for (var i=0; i < data.data.items.length; i++) {
+        app.issues.push(data.data.items[i]);
+      }
+      app.pageCounter++;
+      Data.getIssues(app.name, app.owner, app.pageCounter).then(issuesSuccesHandler, issuesErrorHandler);
+    }
+ }
+
+  function issuesErrorHandler(data) {
+    app.errorMsg = 'No repository was found';
   }
 
-});
+  Data.getDataByID(app.id).then(detailSuccesHandler, detailsErrorHandler);
 
- $scope.detailsTab = 'active';
- $scope.issuesTab = 'default';
- app.detailsPhase = true;
-
- app.showDetails = function() {
-  $scope.detailsTab = 'active';
-  $scope.issuesTab = 'default';
-  app.detailsPhase = true;
-  app.issuesPhase = false;
- };
+  app.showDetails = function() {
+    app.detailsTab = 'active';
+    app.issuesTab = 'default';
+    app.chartTab = 'default';
+    app.detailsPhase = true;
+    app.issuesPhase = false;
+  };
 
   app.showIssues = function() {
-  $scope.detailsTab = 'default';
-  $scope.issuesTab = 'active';
-  app.detailsPhase = false;
-  app.issuesPhase = true;
-  Data.getIssues(app.name, app.owner).then(function(data) {
-    if (data.status === 200) {
-      app.issues = data.data.items;
-    } else {
-      app.errorMsg = 'No repository was found';
-    }
-  });
- };
+    app.detailsTab = 'default';
+    app.issuesTab = 'active';
+    app.chartTab = 'default';
+    app.detailsPhase = false;
+    app.issuesPhase = true;
+    Data.getIssues(app.name, app.owner, app.pageCounter).then(issuesSuccesHandler, issuesErrorHandler);
+  };
 
 });

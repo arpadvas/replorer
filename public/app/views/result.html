@@ -15,36 +15,39 @@
 
 <div class="alert alert-danger show-hide-message" role="alert" ng-show='result.errorMsg'><p>{{result.errorMsg}}</p></div>
 
+
 <div class="container tm100" ng-show="result.loaded">	
+	<a ng-href="{{result.url}}"><h3>{{result.full_name}}</h3></a>
+	<br>
 	<ul class="nav nav-tabs">
-		<li role="presentation" ng-click="result.showDetails();" ng-class="detailsTab"><a href="#">Details</a></li>
-		<li role="presentation" ng-click="result.showIssues();" ng-class="issuesTab"><a href="#">Issues</a></li>
+		<li role="presentation" ng-click="result.showDetails();" ng-class="result.detailsTab"><a href="#">Details</a></li>
+		<li role="presentation" ng-click="result.showIssues();" ng-class="result.issuesTab"><a href="#">Issues</a></li>
 	</ul>
 
 	<!-- detailsPhase -->
 	<div class="panel panel-default" ng-show="result.detailsPhase">
 		<div class="panel-body">
-			<p>Name: {{result.name}}</p>
-			<p>URL: <a ng-href="{{result.url}}">{{result.url}}</a></p>
-			<p>Description: {{result.description}}</p>
-			<p>Created by: <a ng-href="{{result.owner_url}}">{{result.owner}}</a></p>
+			<img src="assets/svg/octoface.svg"></img>&nbsp;<strong>Name:</strong> {{result.name}}<br>
+			<img src="assets/svg/book.svg"></img>&nbsp;<strong>URL:</strong> <a ng-href="{{result.url}}">{{result.url}}</a><br>
+			<img src="assets/svg/file-text.svg"></img>&nbsp;<strong>Description:</strong> {{result.description}}<br>
+			<img src="assets/svg/person.svg"></img>&nbsp;<strong>Created by:</strong> <a ng-href="{{result.owner_url}}">{{result.owner}}</a>
 		</div>
 		<ul class="list-group">
 			<li class="list-group-item">
 				<span class="badge">{{result.forks}}</span>
-				Forks
+				<img src="assets/svg/repo-forked.svg"></img>&nbsp;<strong>Forks</strong>
 			</li>
 			<li class="list-group-item">
 				<span class="badge">{{result.open_issues}}</span>
-				Open issues
+				<img src="assets/svg/issue-opened.svg"></img>&nbsp;<strong>Open issues</strong>
 			</li>
 			<li class="list-group-item">
 				<span class="badge">{{result.stargazers}}</span>
-				Stargazers
+				<img src="assets/svg/star.svg"></img>&nbsp;<strong>Stargazers</strong>
 			</li>
 			<li class="list-group-item">
 				<span class="badge">{{result.watchers}}</span>
-				Watchers
+				<img src="assets/svg/eye.svg"></img>&nbsp;<strong>Watchers</strong>
 			</li>
 		</ul>
 	</div>
@@ -58,10 +61,12 @@
 			<a ng-href="{{issue.html_url}}" class="list-group-item" dir-paginate="issue in result.issues | itemsPerPage: result.pageSize">
 			<strong>{{issue.title}}</strong>
 			<br>
-			Created by: {{issue.user.login}}
+			<p class="green-text">Created by: {{issue.user.login}}</p>
 			</a>
 		</div>
 		<dir-pagination-controls boundary-links="true" class="center"></dir-pagination-controls>
 	</div>
+
 </div>
+
 

@@ -1,3 +1,12 @@
+p {
+  margin: 0;
+}
+
+img {
+  width: 14px;
+  height: 14px;
+}
+
 .tm100 {
   margin-top: 100px;
 }
@@ -20,7 +29,7 @@
 }
 
 .form-group {
-  width: 800px;
+  width: 200px;
 }
 
 .form-group input{
@@ -33,13 +42,22 @@
 
 .panel {
   border-top: none;
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
+  border-radius: 0;
 }
 
 .finding {
   padding: 10px;
   border-bottom: 1px solid #ccc;
+}
+
+.header {
+  font-family: 'Anton', sans-serif;
+}
+
+@media only screen and (min-width: 600px) {
+  .form-group {
+    width: 600px;
+  }
 }
 
 
