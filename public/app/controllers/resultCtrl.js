@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('resultController', [])
 
 .controller('resultCtrl', function($routeParams, Data) {
