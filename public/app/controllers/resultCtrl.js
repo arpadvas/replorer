@@ -58,7 +58,6 @@ angular.module('resultController', [])
   app.showDetails = function() {
     app.detailsTab = 'active';
     app.issuesTab = 'default';
-    app.chartTab = 'default';
     app.detailsPhase = true;
     app.issuesPhase = false;
   };
@@ -66,7 +65,6 @@ angular.module('resultController', [])
   app.showIssues = function() {
     app.detailsTab = 'default';
     app.issuesTab = 'active';
-    app.chartTab = 'default';
     app.detailsPhase = false;
     app.issuesPhase = true;
     Data.getIssues(app.name, app.owner, app.pageCounter).then(issuesSuccesHandler, issuesErrorHandler);

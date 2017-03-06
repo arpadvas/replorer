@@ -2,7 +2,6 @@ angular.module('dataService', [])
 
 .factory('Data', function($http) {
 
-
 	dataFactory = {};
 
 	dataFactory.getData = function(searchKeyword, pageCounter) {
