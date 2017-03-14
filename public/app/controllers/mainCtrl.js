@@ -6,6 +6,22 @@ angular.module('mainController', [])
 
   app.pageSize = 10;
 
+  function succesHandler(data) {
+    if (data.data.total_count === 0) {
+      app.loading = false;
+      app.errorMsg = 'No repository was found';
+    } else {
+      app.loading = false;
+      app.items = data.data.items;
+      app.totalCount = data.data.total_count;
+    }
+  }
+
+  function errorHandler(data) {
+    app.loading = false;
+    app.errorMsg = data.data.message;
+  }
+
   app.search = function(searchKeyword) {
 
     app.loading = true;
@@ -13,35 +29,16 @@ angular.module('mainController', [])
     app.items = [];
     app.searchKeyword = searchKeyword;
     app.pageCounter = 1;
-
-    function succesHandler(data) {
-      if (data.data.total_count === 0) {
-        app.loading = false;
-        app.errorMsg = 'No repository was found';
-      } else {
-        app.loading = false;
-        if (data.data.items.length < 40) {
-          for (var i=0; i < data.data.items.length; i++) {
-            app.items.push(data.data.items[i]);
-          }
-        } else {
-          for (var i=0; i < data.data.items.length; i++) {
-            app.items.push(data.data.items[i]);
-          }
-          app.pageCounter++;
-          Data.getData(app.searchKeyword, app.pageCounter).then(succesHandler, errorHandler);
-        }
-      }
-    }
-
-    function errorHandler(data) {
-      app.loading = false;
-      app.errorMsg = data.data.message;
-    }
-
+    app.totalCount = 0;
 
     Data.getData(app.searchKeyword, app.pageCounter).then(succesHandler, errorHandler);
 
+  }
+
+  app.changePage = function(pageNo) {
+    app.errorMsg = false;
+    app.loading = true;
+    Data.getData(app.searchKeyword, pageNo).then(succesHandler, errorHandler);
   }
 
 });

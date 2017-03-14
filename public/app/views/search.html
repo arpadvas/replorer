@@ -27,7 +27,7 @@
 
 	<div class="alert alert-danger show-hide-message" role="alert" ng-show='main.errorMsg'><p>{{main.errorMsg}}</p></div>
 
-    <div class="list-group" dir-paginate="item in main.items | itemsPerPage: main.pageSize">
+    <div class="list-group" dir-paginate="item in main.items | itemsPerPage: main.pageSize" total-items="main.totalCount">
       <div class="finding">
         <a ng-href="/result/{{item.id}}"><h4 class="list-group-item-heading">{{item.name}}</h4></a>
         <p class="list-group-item-text">{{item.clone_url}}</p>
@@ -37,4 +37,4 @@
     </div>
 </div>
 
-<dir-pagination-controls boundary-links="true" class="center" ng-show="main.items !== undefined"></dir-pagination-controls>
+<dir-pagination-controls boundary-links="true" class="center" ng-show="main.items !== undefined" on-page-change="main.changePage(newPageNumber)"></dir-pagination-controls>

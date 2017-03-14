@@ -58,15 +58,17 @@
 			Open issues: {{result.open_issues}}
 		</div>
 		<div class="list-group">
-			<a ng-href="{{issue.html_url}}" class="list-group-item" dir-paginate="issue in result.issues | itemsPerPage: result.pageSize">
+			<a ng-href="{{issue.html_url}}" class="list-group-item" dir-paginate="issue in result.issues | itemsPerPage: result.pageSize" total-items="result.open_issues">
 			<strong>{{issue.title}}</strong>
 			<br>
 			<p class="green-text">Created by: {{issue.user.login}}</p>
 			</a>
 		</div>
-		<dir-pagination-controls boundary-links="true" class="center"></dir-pagination-controls>
+		
 	</div>
 
 </div>
+
+<dir-pagination-controls boundary-links="true" class="center" ng-show="result.issuesPhase" on-page-change="result.changePage(newPageNumber)"></dir-pagination-controls>
 
 

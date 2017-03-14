@@ -14,46 +14,42 @@ angular.module('resultController', [])
   app.issuesTab = 'default';
   app.detailsPhase = true;
 
-
-  function detailSuccesHandler(data) {
-    app.name = data.data.name;
-    app.full_name = data.data.full_name;
-    app.url = data.data.html_url;
-    app.description = data.data.description;
-    app.owner = data.data.owner.login;
-    app.owner_url = data.data.owner.html_url;
-    app.forks = data.data.forks;
-    app.open_issues = data.data.open_issues_count;
-    app.stargazers = data.data.stargazers_count;
-    app.watchers = data.data.watchers;
-    app.loading = false;
-    app.loaded = true;
- }
-
- function detailsErrorHandler(data) {
-    app.errorMsg = 'Request failed';
-    app.loading = false;
- }
-
-  function issuesSuccesHandler(data) {
-    if (data.data.items.length < 100) {
-      for (var i=0; i < data.data.items.length; i++) {
-        app.issues.push(data.data.items[i]);
-      }
-    } else {
-      for (var i=0; i < data.data.items.length; i++) {
-        app.issues.push(data.data.items[i]);
-      }
-      app.pageCounter++;
-      Data.getIssues(app.name, app.owner, app.pageCounter).then(issuesSuccesHandler, issuesErrorHandler);
-    }
- }
-
-  function issuesErrorHandler(data) {
-    app.errorMsg = 'No repository was found';
+  function loadDetails(id) {
+    return Data.getDataByID(id).then(function(details) {
+      app.name = details.data.name;
+      app.full_name = details.data.full_name;
+      app.url = details.data.html_url;
+      app.description = details.data.description;
+      app.owner = details.data.owner.login;
+      app.owner_url = details.data.owner.html_url;
+      app.forks = details.data.forks;
+      app.open_issues = details.data.open_issues_count;
+      app.stargazers = details.data.stargazers_count;
+      app.watchers = details.data.watchers;
+      app.loaded = true;
+    });
   }
 
-  Data.getDataByID(app.id).then(detailSuccesHandler, detailsErrorHandler);
+  function loadIssues() {
+    return Data.getIssues(app.name, app.owner, app.pageCounter).then(function(issues) {
+      app.issues = issues.data.items;
+      app.loading = false;
+    });
+  }
+
+  function reportProblems(error) {
+    app.errorMsg = error.data.message;
+  }
+
+  app.changePage = function(page) {
+    app.loading = true;
+    app.pageCounter = page;
+    loadIssues();
+  };
+
+  loadDetails(app.id)
+    .then(loadIssues)
+    .catch(reportProblems);
 
   app.showDetails = function() {
     app.detailsTab = 'active';
@@ -67,7 +63,6 @@ angular.module('resultController', [])
     app.issuesTab = 'active';
     app.detailsPhase = false;
     app.issuesPhase = true;
-    Data.getIssues(app.name, app.owner, app.pageCounter).then(issuesSuccesHandler, issuesErrorHandler);
   };
 
 });
